@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Categoria</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-principal: #f8fafc;
+            --bg-card: #ffffff;
+            --texto-principal: #1e293b;
+            --texto-secundario: #64748b;
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --success: #10b981;
+            --success-hover: #059669;
+            --borda: #e2e8f0;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-principal);
+            color: var(--texto-principal);
+        }
+
+        nav {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--borda);
+            padding: 16px 40px;
+        }
+
+        nav a {
+            color: var(--texto-principal);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            padding: 60px 20px;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--borda);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background-color: #f8fafc;
+            padding: 20px 28px;
+            border-bottom: 1px solid var(--borda);
+        }
+
+        .card-header h2 {
+            color: var(--texto-principal);
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .card-body {
+            padding: 32px 28px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--texto-principal);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1px solid var(--borda);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            color: var(--texto-principal);
+            transition: all 0.2s;
+            outline: none;
+            background-color: #f8fafc;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+            background-color: #fff;
+        }
+
+        .is-invalid {
+            border-color: var(--danger) !important;
+            background-color: #fef2f2 !important;
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: 0.8rem;
+            margin-top: 6px;
+            display: block;
+            font-weight: 500;
+        }
+
+        .form-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 36px;
+            padding-top: 20px;
+            border-top: 1px solid var(--borda);
+        }
+
+        button[type="submit"] {
+            background-color: var(--success);
+            color: #fff;
+            border: none;
+            padding: 11px 24px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        button[type="submit"]:hover {
+            background-color: var(--success-hover);
+        }
+
+        .form-actions a {
+            color: var(--texto-secundario);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .form-actions a:hover {
+            color: var(--danger);
+        }
+    </style>
+</head>
+
+<body>
+<nav>
+    <div>
+        <a href="/produtos">FATEC │ CATALOGO</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2>Nova Categoria</h2>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/categorias/salvar}" th:object="${categoriaModel}" method="post">
+                <input type="hidden" th:field="*{idCategoria}">
+                <div class="form-group">
+                    <label>Nome da Categoria:</label>
+                    <input type="text" th:field="*{nome}" placeholder="Ex: Eletrônicos">
+                    <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"
+                          style="color: red; font-size: 0.8rem;"></span>
+                    <div class="form-actions">
+                        <button type="submit">Salvar Categoria</button>
+                        <a href="/categorias"
+                        >Cancelar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
