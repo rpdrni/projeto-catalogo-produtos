@@ -27,6 +27,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/usuarios/**").hasRole("ADMIN")
                         .requestMatchers("/categorias/**").hasRole("ADMIN")
+                        .requestMatchers("/auditoria/**").hasRole("ADMIN")
                         .requestMatchers("/produtos").permitAll() // Público
                         .requestMatchers("/produtos/novo", "/produtos/editar/**", "/produtos/excluir/**").hasRole("ADMIN") // Admins
                         .anyRequest().authenticated() // Restante protegido
